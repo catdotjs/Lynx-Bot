@@ -1,0 +1,14 @@
+{
+  "Discord": {
+    "OwnerIds": [ 0 ],
+    "TestServer": 0,
+    "BotToken": ""
+  },
+
+  "SQL": {
+    "Host": "localhost",
+    "Username": "postgres",
+    "Password": "",
+    "Database": "Lynx"
+  }
+}
