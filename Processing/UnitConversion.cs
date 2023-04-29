@@ -23,14 +23,15 @@ namespace Lynx_Bot.Processing.UnitConversion {
             Kelvin,
             Fahrenheit,
 
-            // ---  Mass[6 - 12]  ---
+            // ---  Mass[6 - 12,21]  ---
             // Metric
             Gram,
             Kilogram,
             Metric_Tonne,
+            Dalton=21,
 
             // Imperial
-            Ounce,
+            Ounce=9,
             Pound,
             US_Short_Ton,
             UK_Long_Ton,
@@ -63,6 +64,7 @@ namespace Lynx_Bot.Processing.UnitConversion {
             { Type.Gram,"g"},
             { Type.Kilogram,"Kg"},
             { Type.Metric_Tonne,"ton(Metric)"},
+            { Type.Dalton,"u"},
 
             { Type.Ounce,"oz"},
             { Type.Pound,"lb"},
@@ -151,6 +153,7 @@ namespace Lynx_Bot.Processing.UnitConversion {
         public List<(UnitType, double)> Data;
         public Mass(UnitType type, double value) {
             double gram = 0;
+            double U = 1.66*Math.Pow(10, -24);
             // Convert all to gram
             switch(type) {
                 // Metric perfection
@@ -183,6 +186,10 @@ namespace Lynx_Bot.Processing.UnitConversion {
                 gram=35840*(value/28.35);
                 break;
 
+                case UnitType.Dalton:
+                gram=value*U;
+                break;
+
                 default:
                 throw new ArgumentException("Non Mass unit has been given. Mass units are");
             }
@@ -191,6 +198,7 @@ namespace Lynx_Bot.Processing.UnitConversion {
                 (UnitType.Gram,gram),
                 (UnitType.Kilogram,gram/1_000),
                 (UnitType.Metric_Tonne,gram/1_000_000),
+                (UnitType.Dalton,gram/U),
 
                 (UnitType.Ounce,gram/28.35),
                 (UnitType.Pound,(gram/28.35)/16),

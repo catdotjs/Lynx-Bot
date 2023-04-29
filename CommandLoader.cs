@@ -251,12 +251,16 @@ namespace Lynx_Bot {
                                         Name="UK(Long) Ton",
                                         Value=12,
                                     },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Dalton/Unified Atomic Mass",
+                                        Value=21,
+                                    },
                                 }
                             }
                         },
                     },
                 
-                    // Convert length
+                    // Convert Length
                     new SlashCommandOptionBuilder() {
                         Name="length",
                         Description="Converts any unit of length to any other unit of length",
