@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 // I'm sure somewhere, someone knows how to make this 0.002391802138% better
 // I'm glad you do but I wrote this with 4 hours of sleep so y'know leave me alone <3
+
 namespace Lynx_Bot.Processing.UnitConversion {
-    using static System.Runtime.InteropServices.JavaScript.JSType;
     // Just makes stuff more tidy
     using UnitType = ConversionUnit.Type;
     static class ConversionUnit {
