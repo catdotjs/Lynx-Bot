@@ -15,17 +15,21 @@ namespace Lynx_Bot {
             { "--RemoveCommands","Removes all slash commands to bot's either test server or global. Checks if 'global' tag is said"},
         };
         public static Task Log(LogMessage message) {
-            ConsoleColor severityColor = message.Severity switch {
-                LogSeverity.Warning => ConsoleColor.Yellow,
-                LogSeverity.Error => ConsoleColor.Red,
-                LogSeverity.Critical => ConsoleColor.DarkRed,
-                LogSeverity.Verbose => ConsoleColor.Green,
-                LogSeverity.Debug => ConsoleColor.Magenta,
-                _ => ConsoleColor.White
-            };
-            Console.ForegroundColor = severityColor;
-            Console.WriteLine($"[{DateTime.Now}/{message.Severity}] {message.Source} | {message.Message}");
-            Console.ForegroundColor=ConsoleColor.White;
+            // I seriously don't know what causes it
+            // Monkey Solution time bbg
+            if(message.Message!="A ButtonExecuted handler has thrown an unhandled exception.") { 
+                ConsoleColor severityColor = message.Severity switch {
+                    LogSeverity.Warning => ConsoleColor.Yellow,
+                    LogSeverity.Error => ConsoleColor.Red,
+                    LogSeverity.Critical => ConsoleColor.DarkRed,
+                    LogSeverity.Verbose => ConsoleColor.Green,
+                    LogSeverity.Debug => ConsoleColor.Magenta,
+                    _ => ConsoleColor.White
+                };
+                Console.ForegroundColor = severityColor;
+                Console.WriteLine($"[{DateTime.Now}/{message.Severity}] {message.Source} | {message.Message}");
+                Console.ForegroundColor=ConsoleColor.White;
+            }
             return Task.CompletedTask;
         }
         public static Task LogException(Exception ex,LogSeverity severity = LogSeverity.Error) {
