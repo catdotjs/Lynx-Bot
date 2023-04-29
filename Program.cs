@@ -6,14 +6,13 @@ using Npgsql;
 using Lynx_Bot.Commands;
 
 // Not a fan of these warns
-#pragma warning disable CS8600, CS8602, CS8604, CS0168
+#pragma warning disable CS8600, CS8602, CS8604, CS0168, CS8618
 class Program {
-    public static DiscordSocketClient Client = new DiscordSocketClient(new DiscordSocketConfig() {
-        GatewayIntents = GatewayIntents.None
-    });
+    // Damn intents
+    public static DiscordSocketClient Client = new DiscordSocketClient();
     public static JObject Config = new JObject();
     public static Random rand = new Random();
-    public static NpgsqlDataSource? Database;
+    public static NpgsqlDataSource Database;
     private static bool IsGlobal = false;
     public static Task Main(string[] args) {
         string[] arg = args.Select(a => a.ToLower()).ToArray();

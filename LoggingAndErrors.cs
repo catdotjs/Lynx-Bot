@@ -29,7 +29,7 @@ namespace Lynx_Bot {
             return Task.CompletedTask;
         }
         public static Task LogException(Exception ex,LogSeverity severity = LogSeverity.Error) {
-            return Log(new LogMessage(severity, ex.Source, ex.Message));
+            return Log(new LogMessage(severity, ex.Source, $"{ex.Message}\n{ex.StackTrace}"));
         }
 
         public static Task CommandHelp() {

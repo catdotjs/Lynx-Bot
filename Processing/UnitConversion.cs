@@ -198,12 +198,13 @@ namespace Lynx_Bot.Processing.UnitConversion {
                 (UnitType.Gram,gram),
                 (UnitType.Kilogram,gram/1_000),
                 (UnitType.Metric_Tonne,gram/1_000_000),
-                (UnitType.Dalton,gram/U),
 
                 (UnitType.Ounce,gram/28.35),
                 (UnitType.Pound,(gram/28.35)/16),
                 (UnitType.US_Short_Ton,(gram/28.35)/32000),
                 (UnitType.UK_Long_Ton,(gram/28.35)/35840),
+
+                (UnitType.Dalton,gram/U),
             };
         }
     }

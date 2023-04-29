@@ -68,13 +68,11 @@ namespace Lynx_Bot.Commands {
         private static EmbedBuilder EmbedBuilder(List<(UnitType type, double value)> Data) {
             EmbedBuilder embed = new EmbedBuilder();
             embed.Color=ImageProcessing.RandomColour();
-
             foreach(var key in Data) {
-                double val = Math.Round(key.value, 4);
-
                 // Titles may have _'s they look ugly so I remove them :pog:
-                embed.AddField($"__**In {(key.type+"").Replace("_", " ")}**__", $"{val}{ConversionUnit.Symbols[key.type]}",inline:true);
+                embed.AddField($"__**In {(key.type+"").Replace("_", " ")}**__", $"{Math.Round(key.value, 4)}{ConversionUnit.Symbols[key.type]}",inline:true);
             }
+
             return embed;
         }
     }
