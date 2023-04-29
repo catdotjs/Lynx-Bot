@@ -13,7 +13,7 @@ class Program {
     });
     public static JObject Config = new JObject();
     public static Random rand = new Random();
-    public static NpgsqlDataSource Database;
+    public static NpgsqlDataSource? Database;
     private static bool IsGlobal = false;
     public static Task Main(string[] args) {
         string[] arg = args.Select(a => a.ToLower()).ToArray();

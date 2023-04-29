@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 namespace Lynx_Bot {
     class CommandLoader {
         private static SlashCommandBuilder[] Commands = new SlashCommandBuilder[]{
+            // Ping
             new SlashCommandBuilder() {
                 Name="ping",
                 Description="a command to check if bot is alive"
             },
+
+            // Send poll
             new SlashCommandBuilder() {
                 Name="send-poll",
                 Description="Sends a question to poll. A and B are required. Max 5 options(a,b,c,d, and e)",
@@ -115,7 +118,204 @@ namespace Lynx_Bot {
                     },
                 },
                 DefaultMemberPermissions = GuildPermission.ManageChannels
-            }
+            },
+            
+            // Convert
+            new SlashCommandBuilder() {
+                Name="convert",
+                Description="Converts units",
+                Options= new List<SlashCommandOptionBuilder>{
+                    // Convert Angle
+                    new SlashCommandOptionBuilder {
+                        Name="angles",
+                        Description="Convert any angle to any other angle",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options=new List<SlashCommandOptionBuilder>{
+                            // Value
+                            new SlashCommandOptionBuilder{
+                                Name="value",
+                                Description="Value you would like to convert(just number, no symbols)",
+                                Type=ApplicationCommandOptionType.Number,
+                                IsRequired=true,
+                            },
+
+                            // Unit
+                            new SlashCommandOptionBuilder{
+                                Name="unit",
+                                Description="Unit you would like to convert FROM(conversion will be done to all other possible values)",
+                                Type=ApplicationCommandOptionType.Integer,
+                                IsRequired=true,
+                                Choices=new List<ApplicationCommandOptionChoiceProperties> {
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Degree",
+                                        Value=0,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Radian",
+                                        Value=1,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Gradian",
+                                        Value=2,
+                                    },
+                                }
+                            }
+                        }
+                    },
+                
+                    // Convert Temperature
+                    new SlashCommandOptionBuilder() {
+                        Name="temperature",
+                        Description="Converts any unit of temperature to any other unit of temperature",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options=new List<SlashCommandOptionBuilder>{
+                            // Value
+                            new SlashCommandOptionBuilder{
+                                Name="value",
+                                Description="Value you would like to convert(just number, no symbols)",
+                                Type=ApplicationCommandOptionType.Number,
+                                IsRequired=true,
+                            },
+                            
+                            // Unit
+                            new SlashCommandOptionBuilder{
+                                Name="unit",
+                                Description="Unit you would like to convert FROM(conversion will be done to all other possible values)",
+                                Type=ApplicationCommandOptionType.Integer,
+                                IsRequired=true,
+                                Choices=new List<ApplicationCommandOptionChoiceProperties> {
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Celsius",
+                                        Value=3,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Kelvin",
+                                        Value=4,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Fahrenheit",
+                                        Value=5,
+                                    },
+                                }
+                            }
+                        },
+                    },
+                
+                    // Convert Mass
+                    new SlashCommandOptionBuilder() {
+                        Name="mass",
+                        Description="Converts any unit of mass to any other unit of mass",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options=new List<SlashCommandOptionBuilder>{
+                            // Value
+                            new SlashCommandOptionBuilder{
+                                Name="value",
+                                Description="Value you would like to convert(just number, no symbols)",
+                                Type=ApplicationCommandOptionType.Number,
+                                IsRequired=true,
+                            },
+                            
+                            // Unit
+                            new SlashCommandOptionBuilder{
+                                Name="unit",
+                                Description="Unit you would like to convert FROM(conversion will be done to all other possible values)",
+                                Type=ApplicationCommandOptionType.Integer,
+                                IsRequired=true,
+                                Choices=new List<ApplicationCommandOptionChoiceProperties> {
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Gram",
+                                        Value=6,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Kilogram",
+                                        Value=7,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Metric Tonne",
+                                        Value=8,
+                                    },
+
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Ounce",
+                                        Value=9,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Pound",
+                                        Value=10,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="US(Short) Ton",
+                                        Value=11,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="UK(Long) Ton",
+                                        Value=12,
+                                    },
+                                }
+                            }
+                        },
+                    },
+                
+                    // Convert length
+                    new SlashCommandOptionBuilder() {
+                        Name="length",
+                        Description="Converts any unit of length to any other unit of length",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options=new List<SlashCommandOptionBuilder>{
+                            // Value
+                            new SlashCommandOptionBuilder{
+                                Name="value",
+                                Description="Value you would like to convert(just number, no symbols)",
+                                Type=ApplicationCommandOptionType.Number,
+                                IsRequired=true,
+                            },
+                            
+                            // Unit
+                            new SlashCommandOptionBuilder{
+                                Name="unit",
+                                Description="Unit you would like to convert FROM(conversion will be done to all other possible values)",
+                                Type=ApplicationCommandOptionType.Integer,
+                                IsRequired=true,
+                                Choices=new List<ApplicationCommandOptionChoiceProperties> {
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Millimetre",
+                                        Value=13,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Centimetre",
+                                        Value=14,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Metre",
+                                        Value=15,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Kilometre",
+                                        Value=16,
+                                    },
+
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Inch",
+                                        Value=17,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Feet",
+                                        Value=18,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Yard",
+                                        Value=19,
+                                    },
+                                    new ApplicationCommandOptionChoiceProperties{
+                                        Name="Mile",
+                                        Value=20,
+                                    },
+                                }
+                            }
+                        },
+                    }
+                },
+            },
         };
 
         public static async Task CommandOverwrite(DiscordSocketClient client,bool isGlobal=false,ulong guildId=0,bool IsRemove=false) {

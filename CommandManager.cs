@@ -18,9 +18,7 @@ namespace Lynx_Bot {
             { "send-poll", Polling.SendPoll}, // Right way to do commands
 
             // Conversion
-            { "convert-angle", Conversion.ConvertAngle},
-            { "convert-temperature", Conversion.ConvertTemperature},
-            { "convert-mass", Conversion.ConvertMass},
+            { "convert", Conversion.ConvertUnit},
         };
 
         public static Dictionary<string, Func<SocketMessageComponent, Task>> ButtonDict = new Dictionary<string, Func<SocketMessageComponent, Task>>() {
@@ -30,13 +28,13 @@ namespace Lynx_Bot {
         private static List<(Func<Task> Function,Timer Time)> RoutineList = new List<(Func<Task> Function, Timer Time)>();
         public static async Task SlashCommands(SocketSlashCommand Context) {
             // I found a better way to do this :)
+            string CommandName = Context.CommandName.Replace("-dev", "");
             try { 
-                await CommandDict[Context.CommandName.Replace("-dev", "")].Invoke(Context);
-            } catch { 
+                await CommandDict[CommandName].Invoke(Context);
+            } catch(Exception ex) { 
                 // Not in dictionary
-                string ErrorMessage = $"{Context.CommandName} could not be found. May be legacy command.";
-                await Context.RespondAsync(ErrorMessage, ephemeral: true);
-                await LoggingAndErrors.Log(new LogMessage(LogSeverity.Error, "CommandManager", ErrorMessage));
+                await Context.RespondAsync($"{CommandName} could not be found. May be legacy command.", ephemeral: true);
+                await LoggingAndErrors.LogException(ex);
             }
         }
         public static async Task Buttons(SocketMessageComponent Context) {
