@@ -13,7 +13,14 @@ namespace Lynx_Bot {
     class CommandManager {
         public static Dictionary<string, Func<SocketSlashCommand,Task>> CommandDict = new Dictionary<string, Func<SocketSlashCommand, Task>>() {
             { "ping", async(Context)=>{ await Context.RespondAsync("pong"); }}, // This command is soley to test functionality of bot. DO NOT WRITE CODE LIKE THIS. EVER.
-            { "send-poll", Polling.SendPoll} // Right way to do commands
+            
+            // Polling
+            { "send-poll", Polling.SendPoll}, // Right way to do commands
+
+            // Conversion
+            { "convert-angle", Conversion.ConvertAngle},
+            { "convert-temperature", Conversion.ConvertTemperature},
+            { "convert-mass", Conversion.ConvertMass},
         };
 
         public static Dictionary<string, Func<SocketMessageComponent, Task>> ButtonDict = new Dictionary<string, Func<SocketMessageComponent, Task>>() {

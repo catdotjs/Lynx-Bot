@@ -8,7 +8,9 @@ using Lynx_Bot.Commands;
 // Not a fan of these warns
 #pragma warning disable CS8600, CS8602, CS8604, CS0168
 class Program {
-    public static DiscordSocketClient Client = new DiscordSocketClient();
+    public static DiscordSocketClient Client = new DiscordSocketClient(new DiscordSocketConfig() {
+        GatewayIntents = GatewayIntents.None
+    });
     public static JObject Config = new JObject();
     public static Random rand = new Random();
     public static NpgsqlDataSource Database;
