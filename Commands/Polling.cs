@@ -174,7 +174,9 @@ namespace Lynx_Bot.Commands {
         public static async Task SendResult(string messageid, JObject data) {
             // messageid = "channel.id/message.id"
             try {
-                ulong ChannelId = Convert.ToUInt64(messageid.Split("/")[0]);
+                string[] BreakdownId = messageid.Split("/");
+                ulong ChannelId = Convert.ToUInt64(BreakdownId[0]);
+                ulong? MessageId = Convert.ToUInt64(BreakdownId[1]);
                 IMessageChannel Channel = Program.Client.GetChannel(ChannelId) as IMessageChannel;
 
                 string Labels = ""; //"a|b|c"
@@ -182,9 +184,11 @@ namespace Lynx_Bot.Commands {
                 int Total = 0;
                 // options:[name,value]
                 foreach(JArray option in (JArray)data["options"]) {
-                    Labels+=$"{option[0]}({option[1]})|";
-                    Data+=$"{option[1]},";
-                    Total+=(int)option[1];
+                    if((int)option[1]>0) { 
+                        Labels+=$"{option[0]} ({option[1]})|";
+                        Data+=$"{option[1]},";
+                        Total+=(int)option[1];
+                    }
                 }
                 EmbedBuilder embed = new EmbedBuilder() {
                     Color=ImageProcessing.RandomColour(),
@@ -194,8 +198,8 @@ namespace Lynx_Bot.Commands {
                         Text="This awesome graph is made with image-charts.com! Thanks for being awesome💖"
                     }
                 };
-
-                await Channel.SendMessageAsync(embed: embed.Build());
+                MessageReference reference = new MessageReference(MessageId);
+                await Channel.SendMessageAsync(embed: embed.Build(), messageReference:reference);
             } catch(Exception ex) { await LoggingAndErrors.LogException(ex); };
         }
 
