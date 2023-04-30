@@ -42,11 +42,11 @@ namespace Lynx_Bot {
 
             try {
                 await ButtonDict[id].Invoke(Context);
-            } catch {
+            } catch(Exception ex) {
                 // Not in dictionary
-                string ErrorMessage = $"{id} could not be evaulated";
+                string ErrorMessage = $"{id} could not be evaulated(error: {ex.Message})";
                 await Context.RespondAsync(ErrorMessage, ephemeral: true);
-                await LoggingAndErrors.Log(new LogMessage(LogSeverity.Error, "CommandManager", ErrorMessage));
+                await LoggingAndErrors.LogException(ex);
             }
 
             // Nothing

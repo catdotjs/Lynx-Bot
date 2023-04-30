@@ -95,10 +95,9 @@ namespace Lynx_Bot.Commands {
             }
             OptionJson.Add("options", OptionsArray);
             OptionJson.Add("question", (string)Options["question"]);
-
-            IUserMessage message = await (Channel as IMessageChannel).SendMessageAsync(embed: embed.Build(), components: Components.Build());
-            string messageid = $"{message.Channel.Id}/{message.Id}";
             try {
+                IUserMessage message = await (Channel as IMessageChannel).SendMessageAsync(embed: embed.Build(), components: Components.Build());
+                string messageid = $"{message.Channel.Id}/{message.Id}";
                 using(var command = Program.Database.CreateCommand("INSERT INTO polling (message_id,options_and_votes,time_left,voted) values (@message_id,@options_and_votes,@time_left,@voted)")) {
                     command.Parameters.AddWithValue("message_id", NpgsqlDbType.Text, messageid);
                     command.Parameters.AddWithValue("options_and_votes", NpgsqlDbType.Json, OptionJson.ToString());
@@ -106,8 +105,11 @@ namespace Lynx_Bot.Commands {
                     command.Parameters.AddWithValue("voted", new string[] { "0" });
                     await command.ExecuteNonQueryAsync();
                 }
-            } catch(Exception ex) { await LoggingAndErrors.LogException(ex); }
-            await Context.RespondAsync("Sent the poll!", ephemeral: true);
+                await Context.RespondAsync("Sent the poll!", ephemeral: true);
+            } catch(Exception ex) { 
+                await LoggingAndErrors.LogException(ex);
+                await Context.RespondAsync($"Error!(could be due to missing permission to specified channel): {ex.Message}",ephemeral:true);
+            }
         }
 
         public static async Task RecieveVote(SocketMessageComponent Context) {
