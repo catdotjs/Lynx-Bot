@@ -117,7 +117,7 @@ namespace Lynx_Bot {
                         IsRequired=false,
                     },
                 },
-                DefaultMemberPermissions = GuildPermission.ManageChannels
+                DefaultMemberPermissions = GuildPermission.ManageMessages,
             },
             
             // Convert
