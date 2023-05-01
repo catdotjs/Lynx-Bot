@@ -49,7 +49,7 @@ namespace Lynx_Bot.Commands {
 
             // Embeds
             EmbedBuilder embed = new EmbedBuilder();
-            embed.Title=$"\"{Options["question"]}\"";
+            embed.Title=$"{Options["question"]}";
             embed.Color=ImageProcessing.RandomColour();
 
             // making sure its all positive integers 
@@ -193,7 +193,7 @@ namespace Lynx_Bot.Commands {
                 EmbedBuilder embed = new EmbedBuilder() {
                     Color=ImageProcessing.RandomColour(),
                     ImageUrl=ImageProcessing.DoughnutPieChart(Data, Labels, Total+" Vote(s)"),
-                    Title=$"\"{data["question"]}\" Results",
+                    Title=$"{data["question"]}'s Results",
                     Footer=new EmbedFooterBuilder() {
                         Text="This awesome graph is made with image-charts.com! Thanks for being awesome💖"
                     }
