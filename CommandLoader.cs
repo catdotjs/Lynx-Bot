@@ -320,6 +320,49 @@ namespace Lynx_Bot {
                     }
                 },
             },
+            
+            // Define
+            new SlashCommandBuilder() {
+                Name="define",
+                Description="Check meaning of words(english only)",
+                Options=new List<SlashCommandOptionBuilder> {
+                    new SlashCommandOptionBuilder {
+                        Name="word",
+                        Description="Word you would like meaning of",
+                        Type=ApplicationCommandOptionType.String,
+                        IsRequired=true,
+                    }
+                }
+            },
+            
+            // Generate
+            new SlashCommandBuilder() {
+                Name="generate",
+                Description="Generates specified thing",
+                Options=new List<SlashCommandOptionBuilder> {
+                    // Password
+                    new SlashCommandOptionBuilder {
+                        Name="password",
+                        Description="Generate password with given length",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options= new List<SlashCommandOptionBuilder> {
+                            // Length
+                            new SlashCommandOptionBuilder {
+                                Name="length",
+                                Description="Length of the generated password",
+                                Type=ApplicationCommandOptionType.Integer,
+                            }
+                        }
+                    },
+                
+                    // Quote
+                    new SlashCommandOptionBuilder {
+                        Name="quote",
+                        Description="Pick a quote from somebody",
+                        Type=ApplicationCommandOptionType.SubCommand
+                    }
+                }
+            },
         };
 
         public static async Task CommandOverwrite(DiscordSocketClient client,bool isGlobal=false,ulong guildId=0,bool IsRemove=false) {

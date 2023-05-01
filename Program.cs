@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Lynx_Bot;
 using Npgsql;
 using Lynx_Bot.Commands;
+using Lynx_Bot.APIs;
 
 // Not a fan of these warns
 #pragma warning disable CS8600, CS8602, CS8604, CS0168, CS8618
@@ -43,6 +44,13 @@ class Program {
             await LoggingAndErrors.LogException(ex);
         }
 
+        // APIs
+        RapidAPI.OnStart();
+        APINinja.OnStart();
+
+        ///
+        /// Discord Stuff
+        /// 
         await Client.LoginAsync(TokenType.Bot,(string)Config["Discord"]["BotToken"]);
         await Client.StartAsync();
 

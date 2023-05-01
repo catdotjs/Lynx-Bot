@@ -10,5 +10,13 @@
     "Username": "postgres",
     "Password": "",
     "Database": "Lynx"
+  },
+
+  "APINinja": {
+    "APIKey": ""
+  },
+
+  "RapidAPI": {
+    "WordsAPI": ""
   }
 }
