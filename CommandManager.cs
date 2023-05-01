@@ -15,7 +15,7 @@ namespace Lynx_Bot {
             { "ping", async(Context)=>{ await Context.RespondAsync("pong"); }}, // This command is soley to test functionality of bot. DO NOT WRITE CODE LIKE THIS. EVER.
             
             // Polling
-            { "send-poll", Polling.SendPoll}, // Right way to do commands
+            { "poll", Polling.SendPoll}, // Right way to do commands
 
             // Conversion
             { "convert", Conversion.ConvertUnit},

@@ -179,27 +179,29 @@ namespace Lynx_Bot.Commands {
                 ulong? MessageId = Convert.ToUInt64(BreakdownId[1]);
                 IMessageChannel Channel = Program.Client.GetChannel(ChannelId) as IMessageChannel;
 
-                string Labels = ""; //"a|b|c"
-                string Data = "t:";
-                int Total = 0;
-                // options:[name,value]
-                foreach(JArray option in (JArray)data["options"]) {
-                    if((int)option[1]>0) { 
-                        Labels+=$"{option[0]} ({option[1]})|";
-                        Data+=$"{option[1]},";
-                        Total+=(int)option[1];
+                if(await Channel.GetMessageAsync((ulong)MessageId)!=null) { 
+                    string Labels = ""; //"a|b|c"
+                    string Data = "t:";
+                    int Total = 0;
+                    // options:[name,value]
+                    foreach(JArray option in (JArray)data["options"]) {
+                        if((int)option[1]>0) { 
+                            Labels+=$"{option[0]} ({option[1]})|";
+                            Data+=$"{option[1]},";
+                            Total+=(int)option[1];
+                        }
                     }
+                    EmbedBuilder embed = new EmbedBuilder() {
+                        Color=ImageProcessing.RandomColour(),
+                        ImageUrl=ImageProcessing.DoughnutPieChart(Data, Labels, Total+" Vote(s)"),
+                        Title=$"{data["question"]}'s Results",
+                        Footer=new EmbedFooterBuilder() {
+                            Text="This awesome graph is made with image-charts.com! Thanks for being awesome💖"
+                        }
+                    };
+                    MessageReference reference = new MessageReference(MessageId);
+                    await Channel.SendMessageAsync(embed: embed.Build(), messageReference:reference);
                 }
-                EmbedBuilder embed = new EmbedBuilder() {
-                    Color=ImageProcessing.RandomColour(),
-                    ImageUrl=ImageProcessing.DoughnutPieChart(Data, Labels, Total+" Vote(s)"),
-                    Title=$"{data["question"]}'s Results",
-                    Footer=new EmbedFooterBuilder() {
-                        Text="This awesome graph is made with image-charts.com! Thanks for being awesome💖"
-                    }
-                };
-                MessageReference reference = new MessageReference(MessageId);
-                await Channel.SendMessageAsync(embed: embed.Build(), messageReference:reference);
             } catch(Exception ex) { await LoggingAndErrors.LogException(ex); };
         }
 

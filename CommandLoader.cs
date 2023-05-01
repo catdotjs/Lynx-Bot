@@ -16,9 +16,9 @@ namespace Lynx_Bot {
                 Description="a command to check if bot is alive"
             },
 
-            // Send poll
+            // Poll
             new SlashCommandBuilder() {
-                Name="send-poll",
+                Name="poll",
                 Description="Sends a question to poll. A and B are required. Max 5 options(a,b,c,d, and e)",
                 Options=new List<SlashCommandOptionBuilder>{
                     // Question
