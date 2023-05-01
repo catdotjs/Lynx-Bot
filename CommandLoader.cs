@@ -363,6 +363,36 @@ namespace Lynx_Bot {
                     }
                 }
             },
+        
+            // Calculate
+            new SlashCommandBuilder() {
+                Name="calculate",
+                Description="Used for math, physics, statistics and chemistry calculations",
+                Options=new List<SlashCommandOptionBuilder> {
+                    // Evaluate
+                    new SlashCommandOptionBuilder {
+                        Name="evaluate",
+                        Description="evaluates given expression",
+                        Type=ApplicationCommandOptionType.SubCommand,
+                        Options= new List<SlashCommandOptionBuilder> {
+                            // Expression
+                            new SlashCommandOptionBuilder {
+                                Name="expression",
+                                Description="Expression to evaluate(please put operators before parentheses, example:'2*(4)')",
+                                Type=ApplicationCommandOptionType.String,
+                            },
+
+                            // WantHelp
+                            new SlashCommandOptionBuilder {
+                                Name="wanthelp",
+                                Description="get the documentation how to use eval function",
+                                Type=ApplicationCommandOptionType.Boolean,
+                                
+                            }
+                        }
+                    }
+                }
+            },
         };
 
         public static async Task CommandOverwrite(DiscordSocketClient client,bool isGlobal=false,ulong guildId=0,bool IsRemove=false) {

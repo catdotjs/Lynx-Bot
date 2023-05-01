@@ -24,7 +24,10 @@ namespace Lynx_Bot {
             { "define", Language.Define},
 
             // Generate
-            { "generate", Generate.ChooseGeneration}
+            { "generate", Generate.ChooseGeneration},
+
+            // Calculate
+            { "calculate", Calculation.ChooseOperation},
         };
 
         public static Dictionary<string, Func<SocketMessageComponent, Task>> ButtonDict = new Dictionary<string, Func<SocketMessageComponent, Task>>() {
