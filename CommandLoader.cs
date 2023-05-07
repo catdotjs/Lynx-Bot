@@ -45,6 +45,13 @@ namespace Lynx_Bot {
                         IsRequired=false,
                     },
 
+                    // Can change vote
+                    new SlashCommandOptionBuilder{
+                        Name="changevote",
+                        Description="Can Users change their vote?",
+                        Type=ApplicationCommandOptionType.Boolean,
+                        IsRequired=true,
+                    },
 
                     // Option + Explaining
                     // A

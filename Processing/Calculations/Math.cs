@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord;
-using MathNet.Symbolics;
 
 namespace Lynx_Bot.Processing.Calculations {
     static class CustomMath {
