@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#pragma warning disable CS8600,CS8602
 
 namespace Lynx_Bot.Processing {
     static class StringsAndWords {

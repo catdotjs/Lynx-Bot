@@ -12,7 +12,6 @@ using NpgsqlTypes;
 using System.Net.Http.Json;
 using System.Reactive;
 using Lynx_Bot.Processing;
-using ScottPlot.Palettes;
 
 // Fuck these fr
 #pragma warning disable CS8600, CS8602, CS8604, CS0168
@@ -195,8 +194,7 @@ namespace Lynx_Bot.Commands {
                     EmbedBuilder embed = new EmbedBuilder() {
                         Color=ImageProcessing.RandomColour(),
                         ImageUrl=$"attachment://{PieData.FileInfo.Name}",
-                        Title=$"{data["question"]}'s results",
-                        Description="We have switched to using [ScottPlot](https://scottplot.net/) for our charts. Thank you for this amazing library 💜",
+                        Title=$"{data["question"]}'s results"
                     };
                     MessageReference reference = new MessageReference(MessageId);
                     await Channel.SendFileAsync(ImageLocation, embed: embed.Build(), messageReference:reference);

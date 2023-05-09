@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Lynx Bot": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

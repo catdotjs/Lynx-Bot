@@ -5,45 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Newtonsoft.Json.Linq;
-using ScottPlot;
-using ScottPlot.Drawing;
-using ScottPlot.Plottable;
-using Colour = System.Drawing.ColorTranslator;
+using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.SkiaSharp;
 
 namespace Lynx_Bot.Processing {
     static class ImageProcessing {
         public static string DoughnutPieChart(DoughnutPieData PieData) {
-            Plot plot = new Plot();
+            PlotModel model = new PlotModel {
+                Title=$"{PieData.Total} {PieData.DataName}{(PieData.Total!=1 ? "s" : "")}",
+                Background=OxyColor.FromRgb(44, 45, 48),
+                TitleColor=OxyColor.FromRgb(242,243,245),
+                TextColor=OxyColor.FromRgb(255, 255, 255),
+                DefaultFontSize=24,
+            };
+
+            PieSeries series = new PieSeries {
+                AngleSpan=360,
+                StartAngle=0,
+                RenderInLegend=true,
+                FontSize=20,
+                FontWeight=FontWeights.Bold,
+            };
+
             // Put amount of votes next to value
             for(int i = 0;i<PieData.Data.Count;i++) {
-                PieData.Labels[i]+=$" ({PieData.Data[i]})";
+                //PieData.Labels[i]+=$" ({PieData.Data[i]})";
+                series.Slices.Add(new PieSlice(PieData.Labels[i], PieData.Data[i]) { IsExploded=true});
             }
-
-            PiePlot pie = plot.AddPie(PieData.Data.ToArray());
-            // Legend makes life so much easier fr fr
-            pie.SliceLabels = PieData.Labels.ToArray();
-            plot.Legend(location: Alignment.UpperRight);
-
-            // Styling
-            plot.Style(Style.Gray1);
-            plot.Palette=Palette.OneHalfDark;
-
-            // Show data
-            pie.Explode=true;
-            pie.ShowLabels=true;
-            pie.ShowPercentages=true;
-            pie.Size=0.9;
-
-            pie.SliceFont.Bold=true;
-            pie.SliceFont.Size=24;
-
-            // Other stuff
-            pie.DonutSize=0.45;
-            double total = PieData.Data.Aggregate((x, y) => x+y);
-            pie.DonutLabel=$"{total} {PieData.DataName}{(total>1?"s":"")}";
-            pie.CenterFont.Color=Colour.FromHtml("#FFFFFF");
-            
-            return plot.SaveFig(PieData.FileInfo.PathAndName, lowQuality:!PieData.HighQuality);
+            model.Series.Add(series);
+            PngExporter.Export(model,PieData.FileInfo.PathAndName,512,384);
+            return PieData.FileInfo.PathAndName;
         }
 
         public static Color RandomColour() {
@@ -57,6 +49,7 @@ namespace Lynx_Bot.Processing {
         // Optional
         public string DataName;
         public bool HighQuality;
+        public double Total;
         public DoughnutPieData(List<double> Data, List<string> Labels, string FileName, string DataName="",bool HighQuality=false) {
             this.Data=Data;
             this.Labels=Labels;
@@ -66,6 +59,7 @@ namespace Lynx_Bot.Processing {
             // Optional
             this.DataName=DataName; 
             this.HighQuality=HighQuality;
+            Total=Data.Sum();
         }
     }
 }
