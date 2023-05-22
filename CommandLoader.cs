@@ -124,7 +124,6 @@ namespace Lynx_Bot {
                         IsRequired=false,
                     },
                 },
-                DefaultMemberPermissions = GuildPermission.ManageMessages,
             },
             
             // Convert
